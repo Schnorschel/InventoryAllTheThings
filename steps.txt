@@ -1,0 +1,41 @@
+(dotnet new -i SDG.templates.Web.API) - only if template was updated
+dotnet new sdg-api -n InventoryAllTheThings
+cd InventoryAllTheThings
+git init
+hub create
+(dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL) - not needed any more, because updated template sdg-api has these
+
+pgcli -U postgres
+Enter PW
+create database InventoryAllTheThings
+
+Don't need this: (
+dotnet ef dbcontext scaffold "server=localhost;database=inventoryofallthings;user id=postgres;password=Schn743!" Npgsql.EntityFrameworkCore.PostgreSQL -c InventoryContext
+https://blog.bitscry.com/2017/05/30/appsettings-json-in-net-core-console-app/
+ - Add to .csproj file:
+    - Microsoft.Extensions.Configuration
+    - Microsoft.Extensions.Configuration.FileExtensions
+    - Microsoft.Extensions.Configuration.Json
+dotnet restore
+)
+
+But this: https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.1&tabs=windows#access-a-secret
+
+%APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json
+<UserSecretsId>d82b982b-da45-4f53-ba96-b2e3371a48ee</UserSecretsId> - old
+
+new: ccee6685-32be-474c-9b1b-d4c0cd7d7b78
+dotnet user-secrets set "Inventory:ConnectionString" "server=localhost;database=inventoryofallthings;user id=postgres;password=Schn743!"
+%APPDATA%\Microsoft\UserSecrets\ccee6685-32be-474c-9b1b-d4c0cd7d7b78\secrets.json
+
+dotnet ef migrations add AddInventoryTable
+Build started...
+Build succeeded.
+An error occurred while accessing the Microsoft.Extensions.Hosting services. Continuing without the application service provider. Error: Could not parse the JSON file.
+Done. To undo this action, use 'ef migrations remove'
+
+Create Controllers Folder
+In it create InventoryController.cs file
+
+dotnet ef database update
