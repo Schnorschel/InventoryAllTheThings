@@ -32,7 +32,7 @@ namespace InventoryAllTheThings.Models
         var envConn = Environment.GetEnvironmentVariable("DATABASE_URL");
         //#warning Update this connection string to point to your own database.
         var conn = this.ConnectionString; // configuration["ConnectionString"];
-        // "server=localhost;database=inventoryofallthings;user id=postgres;password=Schn743!";
+        // "server=localhost;database=inventoryofallthings;user id=postgres";
         if (envConn != null)
         {
           conn = ConvertPostConnectionToConnectionString(envConn);
